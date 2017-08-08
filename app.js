@@ -44,6 +44,20 @@ var UIController = (function () {
 //GLOBAL APP CONTROLLER
 var controller = (function (budgetCtrl, UICtrl) {
 
+    var setupEventListeners = function () {
+        //Click Event Listener
+        document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+
+        //Return/Enter Key Press
+        document.addEventListener('keypress', function (event) {
+
+            if (event.keyCode === 13 || event.which === 13) {
+                ctrlAddItem();
+            }
+
+        });
+    };
+
     var DOM = UICtrl.getDOMstrings();
 
     var ctrlAddItem = function () {
@@ -62,16 +76,6 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     };
 
-    //Click Event Listener
-    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
 
-    //Return/Enter Key Press
-    document.addEventListener('keypress', function (event) {
-
-        if (event.keyCode === 13 || event.which === 13) {
-            ctrlAddItem();
-        }
-
-    });
 
 })(budgetController, UIController);

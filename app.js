@@ -3,7 +3,9 @@
 
 //BUDGET CONTROLLER
 var budgetController = (function () {
-    //Some Code
+
+
+
 })();
 
 
@@ -14,10 +16,10 @@ var budgetController = (function () {
 var UIController = (function () {
 
     var DOMstrings = {
-      inputType: ".add__type",
-      inputDescription: ".add__description",
-      inputValue: ".add__value",
-      inputBtn: ".add__btn"
+        inputType: ".add__type",
+        inputDescription: ".add__description",
+        inputValue: ".add__value",
+        inputBtn: ".add__btn"
     };
 
     return {
@@ -46,15 +48,26 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     var setupEventListeners = function () {
 
+        var DOM = UICtrl.getDOMstrings();
+
+        //Click Event Listener
+        document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+
+        //Return/Enter Key Press
+        document.addEventListener('keypress', function (event) {
+
+            if (event.keyCode === 13 || event.which === 13) {
+                ctrlAddItem();
+            }
+
+        });
     };
 
-    var DOM = UICtrl.getDOMstrings();
+
 
     var ctrlAddItem = function () {
         // 1. Get the field input data
         var input = UIController.getInput();
-        console.log(input);
-
 
         // 2. Add the item to the budget controller
 
@@ -66,16 +79,14 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     };
 
-    //Click Event Listener
-    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
-
-    //Return/Enter Key Press
-    document.addEventListener('keypress', function (event) {
-
-        if (event.keyCode === 13 || event.which === 13) {
-            ctrlAddItem();
+    return {
+        init: function () {
+            console.log("Application has started.");
+            setupEventListeners();
         }
-
-    });
+    };
 
 })(budgetController, UIController);
+
+
+controller.init();
